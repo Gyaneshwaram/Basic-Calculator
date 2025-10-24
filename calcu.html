@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Calculator</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(45deg,#a0ee0e80,#63db8180,rgba(226, 67, 67, 0.5));
+      font-family: Arial, sans-serif;
+    }
+
+    .calculator {
+      background: linear-gradient(45deg,#f3cd2280,#96e41880,rgba(23, 117, 240, 0.5));
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      width: 420px;
+    }
+
+    .display {
+      width: 100%;
+      height: 70px;
+      font-size: 2em;
+      text-align: right;
+      margin-bottom: 15px;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background: #000;
+      color: #0f0;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+
+    button {
+      height: 80px;
+      width: 80px;
+      font-size: 1.5em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #555;
+      color: white;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #777;
+    }
+
+    .operator {
+      background: #ff9500;
+    }
+
+    .operator:hover {
+      background: #ffa733;
+    }
+
+    .equal {
+      background: #1e90ff;
+      grid-column: span 2;
+    }
+
+    .equal:hover {
+      background: #3aa0ff;
+    }
+
+    .clear {
+      background: #e63946;
+    }
+
+    .clear:hover {
+      background: #ff4b5c;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <input type="text" id="display" class="display" disabled>
+    <div class="buttons">
+      <button class="clear" onclick="clearDisplay()">C</button>
+      <button onclick="deleteLast()">DEL</button>
+      <button onclick="appendValue('%')">%</button>
+      <button class="operator" onclick="appendValue('/')">÷</button>
+
+      <button onclick="appendValue('7')">7</button>
+      <button onclick="appendValue('8')">8</button>
+      <button onclick="appendValue('9')">9</button>
+      <button class="operator" onclick="appendValue('*')">×</button>
+
+      <button onclick="appendValue('4')">4</button>
+      <button onclick="appendValue('5')">5</button>
+      <button onclick="appendValue('6')">6</button>
+      <button class="operator" onclick="appendValue('-')">−</button>
+
+      <button onclick="appendValue('1')">1</button>
+      <button onclick="appendValue('2')">2</button>
+      <button onclick="appendValue('3')">3</button>
+      <button class="operator" onclick="appendValue('+')">+</button>
+
+      <button onclick="appendValue('0')">0</button>
+      <button onclick="appendValue('.')">.</button>
+      <button style="width: 175px;" class="equal" onclick="calculateResult()">=</button>
+    </div>
+  </div>
+
+  <script>
+    const display = document.getElementById('display');
+
+    function appendValue(value) {
+      display.value += value;
+    }
+
+    function clearDisplay() {
+      display.value = '';
+    }
+
+    function deleteLast() {
+      display.value = display.value.slice(0, -1);
+    }
+
+    function calculateResult() {
+      try {
+        display.value = eval(display.value.replace('%', '/100'));
+      } catch {
+        display.value = 'Error';
+      }
+    }
+  </script>
+</body>
+</html>
